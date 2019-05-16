@@ -1,0 +1,22 @@
+
+// logo component
+@mixin logoStyles {
+    #logoHolder {
+        width:100px;
+        height:100px;
+        border:1px solid $logo-color;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius:50%;
+        border-width: 2px;
+
+        .navBar__logo {
+            font-weight: 800;
+            font-size: 50px;
+            color:$logo-color;
+            text-shadow: $text-shadow;
+        }
+    }
+}
