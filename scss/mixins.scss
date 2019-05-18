@@ -2,6 +2,9 @@
 // logo component
 @mixin logoStyles {
     #logoHolder {
+        position: absolute;
+        top:0;
+        left:0;
         width:100px;
         height:100px;
         border:1px solid $logo-color;
@@ -12,7 +15,7 @@
         border-radius:50%;
         border-width: 2px;
         background:#fff;
-        
+
         .navBar__logo {
             font-weight: 800;
             font-size: 50px;

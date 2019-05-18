@@ -1,8 +1,6 @@
 
 function animationToggleButton() {
-    var rotated = false;
     const parentDivBubbles = document.querySelector('.navBar__open-buton');
-    
     const firstSpan = parentDivBubbles.querySelector('span:first-child');
     const secondSpan = parentDivBubbles.querySelector('span:nth-child(2)');
     const thirdSpan = parentDivBubbles.querySelector('span:nth-child(3)');
@@ -36,6 +34,7 @@ function animationToggleButton() {
         }
     }
     
+    // on mouse enter
     parentDivBubbles.addEventListener('mouseenter', (e) =>{
         const deg1 =  '0px';
         
@@ -49,7 +48,7 @@ function animationToggleButton() {
 
         thirdSpan.style.top = deg1;
         thirdSpan.style.right = deg1; 
-        secondSpan.style.transition = rotateValues.transition;
+        thirdSpan.style.transition = rotateValues.transition;
 
         fourthSpan.style.top = deg1;
         fourthSpan.style.right = deg1; 
@@ -57,6 +56,7 @@ function animationToggleButton() {
         
     });
     
+    // on mouse leave
     parentDivBubbles.addEventListener('mouseleave', () =>{
         firstSpan.style.top = rotateValues.firstSpan.top;
         firstSpan.style.right = rotateValues.firstSpan.right; 
