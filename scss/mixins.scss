@@ -11,12 +11,23 @@
         justify-content: center;
         border-radius:50%;
         border-width: 2px;
+        background:#fff;
 
         .navBar__logo {
             font-weight: 800;
             font-size: 50px;
             color:$logo-color;
             text-shadow: $text-shadow;
+            font-family: sans-serif
         }
     }
+}
+
+@mixin toggle4ButtonMenu($color) {
+    width:20px;
+    height:20px;
+    border-radius:50px;
+    background:rgba($color, .8);
+    display: inline-block;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
