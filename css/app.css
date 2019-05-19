@@ -130,5 +130,46 @@ a:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(255, 0, 0, 0.15); }
+  .login form {
+    position: absolute;
+    top: 0;
+    z-index: 1111111;
+    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 77%; }
+    .login form #signUpBtn {
+      width: 100%;
+      border-radius: 50px;
+      background: #00ced1;
+      border: none;
+      transition: all .3s;
+      color: #fff; }
+    .login form input {
+      background: transparent;
+      border: 1px solid gray;
+      border-radius: 50px;
+      color: #fff !important; }
+      .login form input:focus {
+        background: transparent; }
+    .login form h2 {
+      position: relative;
+      display: inline-block;
+      transition: all 1s; }
+      .login form h2:after {
+        position: absolute;
+        display: block;
+        content: '';
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #fff;
+        transition: all .3s; }
+      .login form h2:hover:after {
+        width: 100%; }
+    .login form label {
+      color: #C8C1B0; }
 
 /*# sourceMappingURL=app.css.map */

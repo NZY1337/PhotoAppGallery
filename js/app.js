@@ -1,4 +1,9 @@
 
+const loginForm = document.querySelector('#signUpBtnForm');
+
+
+// animation for navBar
+
 function animationToggleButton() {
     const parentDivBubbles = document.querySelector('.navBar__open-buton');
     const firstSpan = parentDivBubbles.querySelector('span:first-child');
@@ -53,7 +58,6 @@ function animationToggleButton() {
         fourthSpan.style.top = deg1;
         fourthSpan.style.right = deg1; 
         fourthSpan.style.transition = rotateValues.transition;
-        
     });
     
     // on mouse leave
@@ -74,3 +78,9 @@ function animationToggleButton() {
 }
 
 animationToggleButton();
+
+// login function
+loginForm.addEventListener('submit', (e) =>{
+    e.preventDefault();
+});
+

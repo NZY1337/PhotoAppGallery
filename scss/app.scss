@@ -58,7 +58,7 @@ a:hover {
         font-style: italic;
         padding:20px;
         background: white;
-        border-radius:8px;
+        @include bordeRadius(8px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
     
@@ -78,28 +78,28 @@ a:hover {
         height:40px;
         margin-top:1rem;
         span:nth-child(1) {
-            @include toggle4ButtonMenu(#CC1414);
+            @include toggle4ButtonMenu($toggleRed);
             position:absolute;
             top:0;
             right:5px;
         }
 
         span:nth-child(2) {
-            @include toggle4ButtonMenu(#FFBB00);
+            @include toggle4ButtonMenu($toggleYellow);
             position:absolute;
             top:0;
             right:20px;
         }
 
         span:nth-child(3) {
-            @include toggle4ButtonMenu(#21753B);
+            @include toggle4ButtonMenu($toggleGreen);
             position:absolute;
             top:15px;
             right:5px;
         }
 
         span:nth-child(4) {
-            @include toggle4ButtonMenu(#685555);
+            @include toggle4ButtonMenu($toggleGray);
             position:absolute;
             top:15px;
             right:20px;
@@ -114,12 +114,13 @@ a:hover {
     animation-name: delayOpac1;
     animation-delay: 1s;
     animation-fill-mode: forwards;
-
     position: relative;
     background:white;
+
     img {
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     }
+
     .overlay{
         position: absolute;
         width:calc(100% - 40px);
@@ -129,6 +130,62 @@ a:hover {
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: rgba(red, .15);
+    }
+
+    form {
+        position: absolute;
+        top: 0;
+        z-index: 1111111;
+        left: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 77%;
+
+        #signUpBtn {
+            width:100%;
+            @include bordeRadius(50px);
+            background: $darkTurqoise;
+            border:none;
+            transition: all .3s;
+            color:$white;
+        }
+
+        input {
+            background:transparent;
+            border:1px solid gray;
+            border-radius:50px;
+            color:$white!important;
+
+            &:focus {
+                background:transparent;
+            }
+        }
+        
+        h2 {
+            position: relative;
+            display: inline-block;
+            transition:all 1s;
+            &:after {
+                position:absolute;
+                display: block;
+                content:'';
+                bottom:0;
+                left:0;
+                width:0%;
+                height:2px;
+                background: $white;
+                transition:all .3s;
+            }
+
+            &:hover:after {
+                width:100%;
+            }
+        }
+            
+        label {
+            color:$text-label;
+        }
     }
 }
 
