@@ -1,9 +1,11 @@
 
-const loginForm = document.querySelector('#signUpBtnForm');
+
+const registerForm = document.querySelector('#signUpForm')
+const loginForm = document.querySelector('#registerForm');
+
 
 
 // animation for navBar
-
 function animationToggleButton() {
     const parentDivBubbles = document.querySelector('.navBar__open-buton');
     const firstSpan = parentDivBubbles.querySelector('span:first-child');
@@ -79,8 +81,49 @@ function animationToggleButton() {
 
 animationToggleButton();
 
+
 // login function
 loginForm.addEventListener('submit', (e) =>{
     e.preventDefault();
 });
 
+// function for changing forms
+
+
+
+
+
+(function () {
+    // form names
+    const loginNameForm = document.querySelector('#login-title'); 
+    const registerNameForm = document.querySelector('#signup-title');
+
+    registerForm.style.animation = 'delayOpac1 1s linear forwards';
+    loginForm.style.animation = 'delayOpac1 1s linear forwards';
+
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+
+    
+    loginNameForm.addEventListener('click', () =>{
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'block';
+    });
+
+    registerNameForm.addEventListener('click', () =>{
+        registerForm.style.display = 'block';
+        loginForm.style.display = 'none';
+
+        document.styleSheets[0].insertRule(`
+           h2 {
+               color:red;
+           }
+        `, 0);
+
+    });
+
+}());
+
+function toggleFade() {
+    
+}

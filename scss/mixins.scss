@@ -39,6 +39,12 @@
     border-radius:$radius;
 }
 
+@mixin button($bgColor, $width, $borderRadius) {
+    background-color:$bgColor;
+    width:$width;
+    border-radius:$borderRadius;
+}
+
 @-webkit-keyframes swing {
     20% {
       -webkit-transform: rotate3d(0, 0, 1, 15deg);

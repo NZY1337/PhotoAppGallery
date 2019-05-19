@@ -25,6 +25,10 @@ body {
   background: linear-gradient(90deg, #fff 48px, transparent 1%) center, linear-gradient(#fff 48px, transparent 1%) center, #685555;
   background-size: 50px 50px; }
 
+h2, button {
+  cursor: pointer;
+  pointer-events: auto; }
+
 @keyframes delayOpac1 {
   from {
     opacity: 0; }
@@ -183,10 +187,18 @@ a:hover {
     width: 77%; }
     .login form ::placeholder {
       color: #fff; }
-    .login form #signUpBtn {
+    .login form .signUpBtn {
+      background-color: #00ced1;
       width: 100%;
       border-radius: 50px;
-      background: #00ced1;
+      border: none;
+      transition: all .3s;
+      color: #fff;
+      margin-top: 2rem; }
+    .login form #logInBtn {
+      background-color: #FFBB00;
+      width: 100%;
+      border-radius: 50px;
       border: none;
       transition: all .3s;
       color: #fff;

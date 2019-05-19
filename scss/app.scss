@@ -18,6 +18,10 @@ body {
     background-size: $dot-space $dot-space;
 }
 
+h2, button {
+    cursor:pointer;
+    pointer-events: auto;
+}
 
 @keyframes delayOpac1 {
     from {
@@ -59,6 +63,7 @@ a:hover {
     height: 40px;
     background:$logo-color;
 }
+
 .navBar {
     padding:1rem;
     align-items: end;
@@ -179,16 +184,21 @@ a:hover {
             color:$white;
         }
 
-        #signUpBtn {
-            width:100%;
-            @include bordeRadius(50px);
-            background: $darkTurqoise;
+        .signUpBtn {
+            @include button($darkTurqoise, 100%, 50px);
             border:none;
             transition: all .3s;
             color:$white;
             margin-top:2rem;
         }
 
+        #logInBtn {
+            @include button($toggleYellow, 100%, 50px);
+            border:none;
+            transition: all .3s;
+            color:$white;
+            margin-top:2rem;
+        }
         input {
             background:rgba(gray, .3);
             border-radius:50px;
@@ -202,6 +212,8 @@ a:hover {
         label {
             color:$text-label;
         }
+
+        
     }
 }
 

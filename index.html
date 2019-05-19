@@ -33,7 +33,7 @@
 <div class="container mt-5">
     <nav class="navBar d-flex justify-content-center">
         <span id="logoHolder">
-            <a class="navBar__logo" href="#">PK</a>
+            <a class="navBar__logo" href="#">KP</a>
         </span>
         
         <div class="navBar__open-buton">
@@ -56,12 +56,11 @@
 
                 <div class="login__names w-100">
                     <h2 id="signup-title" class="mb-5 text-white">SIGN UP</h2>
-                    <h2 id="login-title" class="mb-5  ml-3">SIGN IN</h2>
+                    <h2 id="login-title" class="mb-5  ml-5">SIGN IN</h2>
                 </div>
 
-                <form id="signUpBtnForm">
-                    
-
+                <!-- create account form -->
+                <form id="signUpForm" class="">
                     <div class="form-group">
                         <label for="signUpName">Enter Your Name</label>
                         <input type="text" class="form-control" id="signUpName" placeholder="Enter email">
@@ -88,10 +87,29 @@
                         <label class="form-check-label" >Check me out</label>
                     </div>
 
-                    <button type="submit" id="signUpBtn" class="btn">Submit</button>
+                    <button type="submit" class="signUpBtn btn" >Register Now</button>
 
                     <a href="" class="text-center text-white d-block mt-4"><small><b>Forgot Password ?</b></small></a>
                 </form>
+              
+                <!-- loggin form -->
+                <form id="registerForm">
+                        <div class="form-group">
+                            <label for="logInName">Enter Your Name</label>
+                            <input type="text" class="form-control" id="logInName" placeholder="Enter email">
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="logInEmail">Email address</label>
+                            <input type="email" class="form-control" id="logInEmail"  placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        
+                        <button type="submit" class="signUpBtn btn">Log In</button>
+                        <a class="btn text-white btn-danger" id="logInBtn" class="btn">Create Account</a>
+                        
+                    </form>
+                
             </div>
         </div>
     </div>
