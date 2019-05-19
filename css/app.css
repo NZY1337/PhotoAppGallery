@@ -1,6 +1,25 @@
-p, span {
+@-webkit-keyframes swing {
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg); }
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg); }
+  60% {
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg); }
+  80% {
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg); }
+  to {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg); } }
+p, span, small, a {
   font-family: 'Montserrat';
   margin-bottom: 0; }
+
+h1, h2, h3, h4, h5, h5 {
+  font-family: 'Roboto'; }
 
 body {
   background: linear-gradient(90deg, #fff 48px, transparent 1%) center, linear-gradient(#fff 48px, transparent 1%) center, #685555;
@@ -11,18 +30,36 @@ body {
     opacity: 0; }
   to {
     opacity: 1; } }
-h1, h2, h3, h4, h5, h5 {
-  font-family: 'Roboto'; }
-
 a:hover {
   text-decoration: none;
   color: none; }
 
+.navBar__description {
+  font-size: 13.5px;
+  letter-spacing: 1px;
+  font-style: italic;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  opacity: 0;
+  animation-duration: 2s;
+  animation-name: delayOpac1;
+  animation-delay: 1.5s;
+  animation-fill-mode: forwards; }
+
+#vertical {
+  width: 1px;
+  display: block;
+  margin: 1rem auto;
+  height: 40px;
+  background: #685555; }
+
 .navBar {
   padding: 1rem;
   align-items: end;
-  animation-duration: 2.5s;
-  animation-name: delayOpac1;
   position: relative; }
   .navBar #logoHolder {
     position: absolute;
@@ -49,20 +86,6 @@ a:hover {
     font-weight: 500;
     font-size: 40px;
     font-style: normal; }
-  .navBar__description {
-    font-size: 13.5px;
-    letter-spacing: 1px;
-    font-style: italic;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
-  .navBar #vertical {
-    width: 1px;
-    display: block;
-    margin: 1rem auto;
-    height: 40px;
-    background: #685555; }
   .navBar__open-buton {
     position: absolute;
     top: 0;
@@ -112,19 +135,38 @@ a:hover {
       right: 20px; }
 
 .login {
-  opacity: 0;
-  animation-duration: 2.5s;
-  animation-name: delayOpac1;
-  animation-delay: 1s;
-  animation-fill-mode: forwards;
   position: relative;
   background: white; }
+  .login__names {
+    position: absolute;
+    top: 30px;
+    left: 60px; }
+    .login__names h2#login-title {
+      color: #C8C1B0; }
+    .login__names h2 {
+      position: relative;
+      display: inline-block;
+      transition: all 1s; }
+      .login__names h2:after {
+        position: absolute;
+        display: block;
+        content: '';
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #fff;
+        transition: all .3s; }
+      .login__names h2:hover:after {
+        width: 100%; }
+  .login .form-control {
+    border: none; }
   .login img {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
   .login .overlay {
     position: absolute;
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -135,40 +177,26 @@ a:hover {
     top: 0;
     z-index: 1111111;
     left: 0;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 77%; }
+    .login form ::placeholder {
+      color: #fff; }
     .login form #signUpBtn {
       width: 100%;
       border-radius: 50px;
       background: #00ced1;
       border: none;
       transition: all .3s;
-      color: #fff; }
+      color: #fff;
+      margin-top: 2rem; }
     .login form input {
-      background: transparent;
-      border: 1px solid gray;
+      background: rgba(128, 128, 128, 0.3);
       border-radius: 50px;
       color: #fff !important; }
       .login form input:focus {
-        background: transparent; }
-    .login form h2 {
-      position: relative;
-      display: inline-block;
-      transition: all 1s; }
-      .login form h2:after {
-        position: absolute;
-        display: block;
-        content: '';
-        bottom: 0;
-        left: 0;
-        width: 0%;
-        height: 2px;
-        background: #fff;
-        transition: all .3s; }
-      .login form h2:hover:after {
-        width: 100%; }
+        background: rgba(128, 128, 128, 0.3); }
     .login form label {
       color: #C8C1B0; }
 
