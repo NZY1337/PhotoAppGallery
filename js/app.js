@@ -121,6 +121,7 @@ function validateForm() {
     const signUpEmail = document.querySelector('#signUpEmail');
     const signUpPass = document.querySelector('#signUpPassword');
     const signUpPassRepeat = document.querySelector('#signUpPasswordRepeat'); 
+    const smallSignUpPassRepeat = document.querySelector('#smallSignUpPassRepeat');
     const checkbox = document.querySelector('signUpCheck');
     
     if (signUpName.value == '') {
@@ -144,8 +145,14 @@ function validateForm() {
         signUpPass.classList.remove('border');
     }
     
-    if (signUpPassRepeat.value == '' || signUpPassRepeat.value !== signUpPass.value) {
+    if (signUpPassRepeat.value !== signUpPass.value) {
+        smallSignUpPassRepeat.innerHTML = 'password did not matched';
+       
         signUpPassRepeat.classList.add('border');
+
+        if (signUpPassRepeat.value == '') {
+            smallSignUpPassRepeat.innerHTML = 'password null' 
+        }
         return false;
     }
     
