@@ -144,15 +144,8 @@ function validateForm() {
         signUpPass.classList.remove('border');
     }
     
-    if (signUpPassRepeat.value == '') {
+    if (signUpPassRepeat.value == '' || signUpPassRepeat.value !== signUpPass.value) {
         signUpPassRepeat.classList.add('border');
-        return false;
-    } else {
-        signUpPassRepeat.classList.remove('border');
-    }
-    
-    if (signUpPassRepeat.value !== signUpPass.value) {
-        alert('sal');
         return false;
     }
     
