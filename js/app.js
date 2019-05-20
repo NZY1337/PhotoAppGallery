@@ -82,16 +82,7 @@ function animationToggleButton() {
 animationToggleButton();
 
 
-// login function
-loginForm.addEventListener('submit', (e) =>{
-    e.preventDefault();
-});
-
 // function for changing forms
-
-
-
-
 
 (function () {
     // form names
@@ -121,9 +112,106 @@ loginForm.addEventListener('submit', (e) =>{
         `, 0);
 
     });
-
 }());
 
-function toggleFade() {
+
+// login function
+function validateForm() {
+    const signUpName = document.querySelector('#signUpName');
+    const signUpEmail = document.querySelector('#signUpEmail');
+    const signUpPass = document.querySelector('#signUpPassword');
+    const signUpPassRepeat = document.querySelector('#signUpPasswordRepeat'); 
+    const checkbox = document.querySelector('signUpCheck');
     
+    if (signUpName.value == '') {
+        signUpName.classList.add('border');
+        return false;
+    } else {
+        signUpName.classList.remove('border');
+    }
+    
+    if (signUpEmail.value == '') {
+        signUpEmail.classList.add('border');
+        return false;
+    } else {
+        signUpEmail.classList.remove('border');
+    }
+    
+    if (signUpPass.value == '') {
+        signUpPass.classList.add('border');
+        return false;
+    } else {
+        signUpPass.classList.remove('border');
+    }
+    
+    if (signUpPassRepeat.value == '') {
+        signUpPassRepeat.classList.add('border');
+        return false;
+    } else {
+        signUpPassRepeat.classList.remove('border');
+    }
+    
+    if (signUpPassRepeat.value !== signUpPass.value) {
+        alert('sal');
+        return false;
+    }
+    
+    return true;
+   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

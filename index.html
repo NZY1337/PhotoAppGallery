@@ -60,16 +60,16 @@
                 </div>
 
                 <!-- create account form -->
-                <form id="signUpForm" class="">
+                <form id="signUpForm" name="signUpForm" onsubmit="return validateForm()" autocomplete="off">
                     <div class="form-group">
                         <label for="signUpName">Enter Your Name</label>
-                        <input type="text" class="form-control" id="signUpName" placeholder="Enter email">
+                        <input type="text" class="form-control" id="signUpName" name="signUpName" placeholder="Enter Your Name">
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="signUpEmail">Email address</label>
                         <input type="email" class="form-control" id="signUpEmail"  placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <small autocomplete="off" id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
 
                     <div class="form-group">
@@ -79,7 +79,7 @@
 
                     <div class="form-group">
                         <label for="signUpPasswordRepeat">Repeat Password</label>
-                        <input type="password" class="form-control" id="signUpPasswordRepea" placeholder="Password">
+                        <input type="password" class="form-control" id="signUpPasswordRepeat" placeholder="Password">
                     </div>
 
                     <div class="form-check">
@@ -92,6 +92,8 @@
                     <a href="" class="text-center text-white d-block mt-4"><small><b>Forgot Password ?</b></small></a>
                 </form>
               
+
+                
                 <!-- loggin form -->
                 <form id="registerForm">
                         <div class="form-group">
