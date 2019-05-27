@@ -1,9 +1,16 @@
 import { bromance } from './bro';
+import uniqid from 'uniqid';
+
+
+const asd = uniqid();
+console.log(asd);
 console.log(bromance('Andrei'));
 
 
 const registerForm = document.querySelector('#signUpForm')
 const loginForm = document.querySelector('#registerForm');
+const btnLog = document.querySelector('#signUpBtn');
+
 
 
 // animation for navBar
@@ -115,15 +122,14 @@ animationToggleButton();
     });
 }());
 
-
+    
 // login function
 function validateForm() {
-    const signUpName = document.querySelector('#signUpName');
-    const signUpEmail = document.querySelector('#signUpEmail');
-    const signUpPass = document.querySelector('#signUpPassword');
-    const signUpPassRepeat = document.querySelector('#signUpPasswordRepeat'); 
+    const signUpName = document.forms["signUpForm"]["signUpName"]; 
+    const signUpEmail = document.forms["signUpForm"]["signUpEmail"]; 
+    const signUpPass = document.forms["signUpForm"]["signUpPassword"]; 
+    const signUpPassRepeat = document.forms["signUpForm"]["signUpPasswordRepeat"];  
     const smallSignUpPassRepeat = document.querySelector('#smallSignUpPassRepeat');
-    const checkbox = document.querySelector('signUpCheck');
     
     if (signUpName.value == '') {
         signUpName.classList.add('border');
@@ -156,47 +162,15 @@ function validateForm() {
     }
     
     return true;
-   
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+btnLog.addEventListener('click', function(e){
+    e.preventDefault();
+    if(validateForm()) {
+        registerForm.submit();
+    }
+});
 
 
 

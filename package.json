@@ -5,11 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "id": "^0.0.0",
-    "node-sass": "^4.12.0",
     "node": "^12.2.0",
+    "node-sass": "^4.12.0",
     "sass": "^1.20.1",
-    "unique": "^0.0.1",
-    "uniqueid": "^1.0.0"
+    "uniqid": "^5.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
