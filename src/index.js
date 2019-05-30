@@ -183,7 +183,7 @@ const saveUersData = (name, password) => {
         userName : name.value,
         userPass : password.value
     }
-    
+
     console.log(users);
     // call the payloaders function for the user's data, afer the inputs' fields have values
     payloadUsers = encodedBase64Data(users);
@@ -204,3 +204,4 @@ const encodedBase64Data = (data) => {
 }
 
 
+console.log('hello world');
