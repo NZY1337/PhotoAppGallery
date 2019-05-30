@@ -1,20 +1,26 @@
 import { bromance } from './bro';
 import uniqid from 'uniqid';
 
+// require cryptoJs
+const CryptoJS = require("crypto-js");
+let payloadUsers;
 
-const asd = uniqid();
-console.log(asd);
-console.log(bromance('Andrei'));
+// creating JWT Token - we need HEADER + PAYLOAD + SIGNATURE
+const header = {
+    alg: "HS256",
+    typ: "JWT"
+};
 
+let encodedHeader, token;
 
+// array of user submitted from the form
+let users = [];
 const registerForm = document.querySelector('#signUpForm')
 const loginForm = document.querySelector('#registerForm');
 const btnLog = document.querySelector('#signUpBtn');
 
-
-
 // animation for navBar
-function animationToggleButton() {
+(function (){
     const parentDivBubbles = document.querySelector('.navBar__open-buton');
     const firstSpan = parentDivBubbles.querySelector('span:first-child');
     const secondSpan = parentDivBubbles.querySelector('span:nth-child(2)');
@@ -84,14 +90,10 @@ function animationToggleButton() {
         fourthSpan.style.top = rotateValues.fourthSpan.top;
         fourthSpan.style.right = rotateValues.fourthSpan.right; 
     });
-
-}
-
-animationToggleButton();
+}());
 
 
 // function for changing forms
-
 (function () {
     // form names
     const loginNameForm = document.querySelector('#login-title'); 
@@ -102,7 +104,6 @@ animationToggleButton();
 
     loginForm.style.display = 'none';
     registerForm.style.display = 'block';
-
     
     loginNameForm.addEventListener('click', () =>{
         registerForm.style.display = 'none';
@@ -122,7 +123,7 @@ animationToggleButton();
     });
 }());
 
-    
+
 // login function
 function validateForm() {
     const signUpName = document.forms["signUpForm"]["signUpName"]; 
@@ -130,7 +131,7 @@ function validateForm() {
     const signUpPass = document.forms["signUpForm"]["signUpPassword"]; 
     const signUpPassRepeat = document.forms["signUpForm"]["signUpPasswordRepeat"];  
     const smallSignUpPassRepeat = document.querySelector('#smallSignUpPassRepeat');
-    
+
     if (signUpName.value == '') {
         signUpName.classList.add('border');
         return false;
@@ -160,31 +161,46 @@ function validateForm() {
         }
         return false;
     }
-    
+
+    // when submit call this function to store the user's datas
+    saveUersData(signUpName, signUpPass);
     return true;
 }
 
-
-btnLog.addEventListener('click', function(e){
+// activate the form
+btnLog.addEventListener('click', function(e){ 
     e.preventDefault();
-    if(validateForm()) {
-        registerForm.submit();
-    }
+    
+   if(validateForm()){
+    //    debugger
+    //    registerForm.submit();
+   };
 });
+ 
+// save user's Data in the 'user' variable
+const saveUersData = (name, password) => {
+    users = {
+        userName : name.value,
+        userPass : password.value
+    }
+    
+    console.log(users);
+    // call the payloaders function for the user's data, afer the inputs' fields have values
+    payloadUsers = encodedBase64Data(users);
+    encodedHeader = encodedBase64Data(header);
+    token = encodedHeader + payloadUsers;
+    console.log(token);
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// FUNCTION encode in base 64 
+const encodedBase64Data = (data) => {
+    let encodedData = Buffer.from(JSON.stringify(data)).toString('base64');
+    encodedData = encodedData.replace(/=+$/, '');
+    encodedData = encodedData.replace(/\+/g, '-');
+    encodedData = encodedData.replace(/\//g, '_');
+    
+    return encodedData;
+}
 
 
