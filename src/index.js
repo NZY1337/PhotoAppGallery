@@ -1,23 +1,44 @@
 import { bromance } from './bro';
 import uniqid from 'uniqid';
+import Worker from './my.worker.js';
 
+// tokenul trebuie sa se desfasoare in webWorker - toata logica
+
+
+const worker = new Worker();
+// array of user submitted from the form
+let usersHolder = [];
+const registerForm = document.querySelector('#signUpForm')
+const loginForm = document.querySelector('#registerForm');
+const btnLog = document.querySelector('#signUpBtn');
+
+
+
+
+
+
+worker.addEventListener('onmessage', (e)=>{
+    console.log(e);
+})
 // require cryptoJs
 const CryptoJS = require("crypto-js");
-let payloadUsers;
+const secret = "secret key";
 
-// creating JWT Token - we need HEADER + PAYLOAD + SIGNATURE
+// creating JWT Token - we need  HEADER + PAYLOAD + SIGNATURE
 const header = {
     alg: "HS256",
     typ: "JWT"
 };
 
-let encodedHeader, token;
 
-// array of user submitted from the form
-let users = [];
-const registerForm = document.querySelector('#signUpForm')
-const loginForm = document.querySelector('#registerForm');
-const btnLog = document.querySelector('#signUpBtn');
+let encodedHeader, 
+    token, 
+    payloadUsers,
+    signature;
+                                                
+
+
+
 
 // animation for navBar
 (function (){
@@ -131,7 +152,7 @@ function validateForm() {
     const signUpPass = document.forms["signUpForm"]["signUpPassword"]; 
     const signUpPassRepeat = document.forms["signUpForm"]["signUpPasswordRepeat"];  
     const smallSignUpPassRepeat = document.querySelector('#smallSignUpPassRepeat');
-
+    
     if (signUpName.value == '') {
         signUpName.classList.add('border');
         return false;
@@ -161,7 +182,12 @@ function validateForm() {
         }
         return false;
     }
-
+    
+    signUpName.addEventListener('change', (e) =>{
+        worker.postMessage(signUpName.value);
+        console.log('msg posted to worker')
+    })
+    
     // when submit call this function to store the user's datas
     saveUersData(signUpName, signUpPass);
     return true;
@@ -179,18 +205,28 @@ btnLog.addEventListener('click', function(e){
  
 // save user's Data in the 'user' variable
 const saveUersData = (name, password) => {
-    users = {
+    const users = {
         userName : name.value,
         userPass : password.value
     }
+    usersHolder.push(users);
+    console.log(usersHolder);
 
-    console.log(users);
     // call the payloaders function for the user's data, afer the inputs' fields have values
     payloadUsers = encodedBase64Data(users);
     encodedHeader = encodedBase64Data(header);
-    token = encodedHeader + payloadUsers;
-    console.log(token);
+
+    // token = Header + Payload(fromuser)
+
+    token = `${encodedHeader}.${payloadUsers}`;
+
+    signature = CryptoJS.HmacSHA256(token, secret);
+    signature = encodedBase64Data(signature); 
+   
+    // signedToken = token + sinature;
+    var signedToken = token + "." + signature;
 }
+
 
 
 // FUNCTION encode in base 64 
@@ -204,4 +240,3 @@ const encodedBase64Data = (data) => {
 }
 
 
-console.log('hello world');
