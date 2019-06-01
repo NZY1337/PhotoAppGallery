@@ -166,8 +166,10 @@ function validateForm() {
 
 
     if (signUpName.value !== '' && signUpEmail.value !== '' && lol) {
-        worker.postMessage(signUpName.value);
-        worker.postMessage(signUpEmail.value);
+        const arr = [];
+        arr.push(signUpName.value);
+        arr.push(signUpEmail.value);
+        worker.postMessage(arr);
         console.log('success');
     }
 
@@ -241,7 +243,6 @@ const saveUersData = (name, email) => {
 }
 
 
-
 // FUNCTION encode in base 64 
 const encodedBase64Data = (data) => {
     let encodedData = Buffer.from(JSON.stringify(data)).toString('base64');
@@ -252,3 +253,7 @@ const encodedBase64Data = (data) => {
     return encodedData;
 }
 
+worker.onmessage = e => {
+    const h1 = document.querySelector('h1');
+    h1.innerHTML = e.data[1]
+}
