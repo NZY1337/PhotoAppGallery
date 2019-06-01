@@ -1,43 +1,41 @@
 import { bromance } from './bro';
 import uniqid from 'uniqid';
 import Worker from './my.worker.js';
+import { sign } from 'crypto';
+
+'use strict';
 
 // tokenul trebuie sa se desfasoare in webWorker - toata logica
 
+let encodedHeader, 
+token, 
+payloadUsers,
+signature;
 
 const worker = new Worker();
-// array of user submitted from the form
 let usersHolder = [];
+
+// login form
 const registerForm = document.querySelector('#signUpForm')
 const loginForm = document.querySelector('#registerForm');
 const btnLog = document.querySelector('#signUpBtn');
-
-
-
-
-
+const signUpEmail = document.forms["signUpForm"]["signUpEmail"]; 
+const signUpName = document.forms["signUpForm"]["signUpName"]; 
+const CryptoJS = require("crypto-js");
+const secret = "secret key";
+let lol = true;
 
 worker.addEventListener('onmessage', (e)=>{
     console.log(e);
 })
 // require cryptoJs
-const CryptoJS = require("crypto-js");
-const secret = "secret key";
+
 
 // creating JWT Token - we need  HEADER + PAYLOAD + SIGNATURE
 const header = {
     alg: "HS256",
     typ: "JWT"
 };
-
-
-let encodedHeader, 
-    token, 
-    payloadUsers,
-    signature;
-                                                
-
-
 
 
 // animation for navBar
@@ -147,8 +145,7 @@ let encodedHeader,
 
 // login function
 function validateForm() {
-    const signUpName = document.forms["signUpForm"]["signUpName"]; 
-    const signUpEmail = document.forms["signUpForm"]["signUpEmail"]; 
+    
     const signUpPass = document.forms["signUpForm"]["signUpPassword"]; 
     const signUpPassRepeat = document.forms["signUpForm"]["signUpPasswordRepeat"];  
     const smallSignUpPassRepeat = document.querySelector('#smallSignUpPassRepeat');
@@ -166,7 +163,16 @@ function validateForm() {
     } else {
         signUpEmail.classList.remove('border');
     }
-    
+
+
+    if (signUpName.value !== '' && signUpEmail.value !== '' && lol) {
+        worker.postMessage(signUpName.value);
+        worker.postMessage(signUpEmail.value);
+        console.log('success');
+    }
+
+    lol = false;
+
     if (signUpPass.value == '') {
         signUpPass.classList.add('border');
         return false;
@@ -183,20 +189,26 @@ function validateForm() {
         return false;
     }
     
-    signUpName.addEventListener('change', (e) =>{
-        worker.postMessage(signUpName.value);
-        console.log('msg posted to worker')
+    signUpEmail.addEventListener('change', (e) =>{
+        if (signUpEmail.value !== '') {
+            worker.postMessage(signUpEmail.value);
+        }
     })
     
+   
+    
+
     // when submit call this function to store the user's datas
-    saveUersData(signUpName, signUpPass);
+    saveUersData(signUpName, signUpEmail);
+    btnLog.removeAttribute('disabled');
     return true;
 }
 
 // activate the form
 btnLog.addEventListener('click', function(e){ 
-    e.preventDefault();
     
+    e.preventDefault();
+   
    if(validateForm()){
     //    debugger
     //    registerForm.submit();
@@ -204,14 +216,14 @@ btnLog.addEventListener('click', function(e){
 });
  
 // save user's Data in the 'user' variable
-const saveUersData = (name, password) => {
+const saveUersData = (name, email) => {
     const users = {
         userName : name.value,
-        userPass : password.value
+        userEmail : email.value
     }
     usersHolder.push(users);
     console.log(usersHolder);
-
+   
     // call the payloaders function for the user's data, afer the inputs' fields have values
     payloadUsers = encodedBase64Data(users);
     encodedHeader = encodedBase64Data(header);
@@ -224,7 +236,8 @@ const saveUersData = (name, password) => {
     signature = encodedBase64Data(signature); 
    
     // signedToken = token + sinature;
-    var signedToken = token + "." + signature;
+    const signedToken = token + "." + signature;
+    console.log(signedToken);
 }
 
 
@@ -238,5 +251,4 @@ const encodedBase64Data = (data) => {
     
     return encodedData;
 }
-
 

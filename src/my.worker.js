@@ -1,5 +1,8 @@
 
+const CryptoJS = require("crypto-js");
+
 self.addEventListener('message', (e) =>{
-  console.log(e.data);
-  console.log('message received');
+  const resWorker = e.data;
+  console.log(resWorker);
 })
+
