@@ -2,6 +2,7 @@ import { bromance } from './bro';
 import uniqid from 'uniqid';
 import Worker from './my.worker.js';
 import { sign } from 'crypto';
+const jwt  = require('jsonwebtoken');
 
 'use strict';
 
@@ -22,7 +23,7 @@ const btnLog = document.querySelector('#signUpBtn');
 const signUpEmail = document.forms["signUpForm"]["signUpEmail"]; 
 const signUpName = document.forms["signUpForm"]["signUpName"]; 
 const CryptoJS = require("crypto-js");
-const secret = "secret key";
+const secret = "my mom is ok with you but is not ok with me";
 let lol = true;
 
 worker.addEventListener('onmessage', (e)=>{
@@ -197,8 +198,6 @@ function validateForm() {
         }
     })
     
-   
-    
 
     // when submit call this function to store the user's datas
     saveUersData(signUpName, signUpEmail);
@@ -231,15 +230,15 @@ const saveUersData = (name, email) => {
     encodedHeader = encodedBase64Data(header);
 
     // token = Header + Payload(fromuser)
-
+    
     token = `${encodedHeader}.${payloadUsers}`;
 
     signature = CryptoJS.HmacSHA256(token, secret);
     signature = encodedBase64Data(signature); 
-   
+    console.log(decode(signature));
     // signedToken = token + sinature;
-    const signedToken = token + "." + signature;
-    console.log(signedToken);
+    const signedToken = `${token}.${signature}`
+   
 }
 
 
@@ -257,3 +256,9 @@ worker.onmessage = e => {
     const h1 = document.querySelector('h1');
     h1.innerHTML = e.data[1]
 }
+
+
+ const decode = token => {
+    return jwt.decode(token, {complete: true});
+ }
+
