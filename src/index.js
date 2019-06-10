@@ -2,7 +2,14 @@ import { bromance } from './bro';
 import uniqid from 'uniqid';
 import Worker from './my.worker.js';
 import { sign } from 'crypto';
+import { PI, asd } from './indexDB';
 const jwt  = require('jsonwebtoken');
+
+const bro = bromance('love');
+console.log(PI);
+console.log(asd);
+
+
 
 'use strict';
 
@@ -165,13 +172,12 @@ function validateForm() {
         signUpEmail.classList.remove('border');
     }
 
-
+    
     if (signUpName.value !== '' && signUpEmail.value !== '' && lol) {
         const arr = [];
         arr.push(signUpName.value);
         arr.push(signUpEmail.value);
         worker.postMessage(arr);
-        console.log('success');
     }
 
     lol = false;
@@ -235,10 +241,9 @@ const saveUersData = (name, email) => {
 
     signature = CryptoJS.HmacSHA256(token, secret);
     signature = encodedBase64Data(signature); 
-    console.log(decode(signature));
+    console.log(decode(users.userName, secret));
     // signedToken = token + sinature;
     const signedToken = `${token}.${signature}`
-   
 }
 
 
@@ -257,8 +262,12 @@ worker.onmessage = e => {
     h1.innerHTML = e.data[1]
 }
 
-
- const decode = token => {
-    return jwt.decode(token, {complete: true});
+const decode = (users, secret) => {
+    var encrypted = CryptoJS.AES.encrypt(users, secret);
+    console.log(encrypted);
+    var decrypted = CryptoJS.AES.decrypt(encrypted, secret);
+    console.log(decrypted === decrypted);
  }
+
+// ///////////////////
 
