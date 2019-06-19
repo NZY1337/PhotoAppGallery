@@ -6,19 +6,14 @@ import { PI, asd } from './indexDB';
 const jwt  = require('jsonwebtoken');
 
 const bro = bromance('love');
-console.log(PI);
-console.log(asd);
-
-
 
 'use strict';
 
 // tokenul trebuie sa se desfasoare in webWorker - toata logica
 
-let encodedHeader, 
-token, 
-payloadUsers,
-signature;
+let savePass, 
+encodedPassword;
+
 
 const worker = new Worker();
 let usersHolder = [];
@@ -30,20 +25,10 @@ const btnLog = document.querySelector('#signUpBtn');
 const signUpEmail = document.forms["signUpForm"]["signUpEmail"]; 
 const signUpName = document.forms["signUpForm"]["signUpName"]; 
 const CryptoJS = require("crypto-js");
-const secret = "my mom is ok with you but is not ok with me";
 let lol = true;
 
-worker.addEventListener('onmessage', (e)=>{
-    console.log(e);
-})
+
 // require cryptoJs
-
-
-// creating JWT Token - we need  HEADER + PAYLOAD + SIGNATURE
-const header = {
-    alg: "HS256",
-    typ: "JWT"
-};
 
 
 // animation for navBar
@@ -172,16 +157,6 @@ function validateForm() {
         signUpEmail.classList.remove('border');
     }
 
-    
-    if (signUpName.value !== '' && signUpEmail.value !== '' && lol) {
-        const arr = [];
-        arr.push(signUpName.value);
-        arr.push(signUpEmail.value);
-        worker.postMessage(arr);
-    }
-
-    lol = false;
-
     if (signUpPass.value == '') {
         signUpPass.classList.add('border');
         return false;
@@ -189,7 +164,7 @@ function validateForm() {
         signUpPass.classList.remove('border');
     }
     
-    if (signUpPassRepeat.value !== signUpPass.value) {
+    if (signUpPassRepeat.value !== signUpPass.value && lol) {
         smallSignUpPassRepeat.innerHTML = 'password did not matched';
         signUpPassRepeat.classList.add('border');
         if (signUpPassRepeat.value == '') {
@@ -198,18 +173,17 @@ function validateForm() {
         return false;
     }
     
-    signUpEmail.addEventListener('change', (e) =>{
-        if (signUpEmail.value !== '') {
-            worker.postMessage(signUpEmail.value);
-        }
-    })
-    
+ 
+    lol = false;
 
     // when submit call this function to store the user's datas
-    saveUersData(signUpName, signUpEmail);
+    saveUersData(signUpPassword);
     btnLog.removeAttribute('disabled');
+
+    savePass = signUpPass.value;
     return true;
 }
+worker.postMessage(savePass);
 
 // activate the form
 btnLog.addEventListener('click', function(e){ 
@@ -217,33 +191,23 @@ btnLog.addEventListener('click', function(e){
     e.preventDefault();
    
    if(validateForm()){
-    //    debugger
     //    registerForm.submit();
    };
 });
  
+
 // save user's Data in the 'user' variable
-const saveUersData = (name, email) => {
+const saveUersData = (password) => {
     const users = {
-        userName : name.value,
-        userEmail : email.value
+        userPass : password.value,
     }
+    
     usersHolder.push(users);
     console.log(usersHolder);
-   
-    // call the payloaders function for the user's data, afer the inputs' fields have values
-    payloadUsers = encodedBase64Data(users);
-    encodedHeader = encodedBase64Data(header);
-
-    // token = Header + Payload(fromuser)
     
-    token = `${encodedHeader}.${payloadUsers}`;
-
-    signature = CryptoJS.HmacSHA256(token, secret);
-    signature = encodedBase64Data(signature); 
-    console.log(decode(users.userName, secret));
-    // signedToken = token + sinature;
-    const signedToken = `${token}.${signature}`
+    // call the payloaders function for the user's data, afer the inputs' fields have values
+    encodedPassword = encodedBase64Data(users.userPass);
+    console.log(encodedPassword);
 }
 
 
@@ -257,17 +221,16 @@ const encodedBase64Data = (data) => {
     return encodedData;
 }
 
+// display the worker's message that had been sent from the worker on UX 
 worker.onmessage = e => {
     const h1 = document.querySelector('h1');
     h1.innerHTML = e.data[1]
 }
 
-const decode = (users, secret) => {
-    var encrypted = CryptoJS.AES.encrypt(users, secret);
+const encode = (password) => {
+    var encrypted = CryptoJS.AES.encrypt(password);
     console.log(encrypted);
-    var decrypted = CryptoJS.AES.decrypt(encrypted, secret);
-    console.log(decrypted === decrypted);
- }
+}
 
 // ///////////////////
 
